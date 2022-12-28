@@ -186,6 +186,7 @@ const styles = StyleSheet.create({
 });
 
 const EnhancedImageViewing = (props: Props) => (
+  // @ts-ignore
   <ImageViewing key={props.imageIndex} {...props} />
 );
 
