@@ -77,6 +77,7 @@ const [visible, setIsVisible] = useState(false);
 | `doubleTapToZoomEnabled` | Zoom image by double tap on it: default `true`                                                      | boolean                                                     | false    |
 | `HeaderComponent`        | Header component, gets current `imageIndex` as a prop                                               | component, function                                         | false    |
 | `FooterComponent`        | Footer component, gets current `imageIndex` as a prop                                               | component, function                                         | false    |
+| `children`        | children component, necessary to open modal above main component                                             | React.ReactNode                                         | false    |
 
 - type ImageSource = ImageURISource | ImageRequireSource
 
