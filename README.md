@@ -10,6 +10,8 @@
 - 🔥Supports swipe-to-close animation
 - 🔥Custom header and footer components
 - 🔥Uses VirtualizedList to optimize image loading and rendering
+- 🔥NEW: Progressive Image Loading (With thumbnail)
+
 
 Try with Expo: https://expo.io/@antonkalinin/react-native-image-viewing
 
@@ -36,13 +38,34 @@ import ImageView from "react-native-image-viewing";
 
 const images = [
   {
-    uri: "https://images.unsplash.com/photo-1571501679680-de32f1e7aad4",
+    image: 
+      {
+        uri: "https://images.unsplash.com/photo-1571501679680-de32f1e7aad4"
+      },
+    thumbnailImage: 
+      {
+        uri: "https://images.unsplash.com/photo-1571501679680-de32f1e7aad4"
+      },
   },
   {
-    uri: "https://images.unsplash.com/photo-1573273787173-0eb81a833b34",
+    image: 
+      {
+        uri: "https://images.unsplash.com/photo-1573273787173-0eb81a833b34"
+      },
+    thumbnailImage: 
+      {
+        uri: "https://images.unsplash.com/photo-1573273787173-0eb81a833b34"
+      },
   },
   {
-    uri: "https://images.unsplash.com/photo-1569569970363-df7b6160d111",
+    image: 
+      {
+        uri: "https://images.unsplash.com/photo-1569569970363-df7b6160d111"
+      },
+    thumbnailImage: 
+      {
+        uri: "https://images.unsplash.com/photo-1569569970363-df7b6160d111"
+      },
   },
 ];
 
@@ -62,7 +85,7 @@ const [visible, setIsVisible] = useState(false);
 
 | Prop name                | Description                                                                                         | Type                                                        | Required |
 | ------------------------ | --------------------------------------------------------------------------------------------------- | ----------------------------------------------------------- | -------- |
-| `images`                 | Array of images to display                                                                          | ImageSource[]                                               | true     |
+| `images`                 | Array of images to display (thumbnail and original)                                                                          | ImageSource[]                                               | true     |
 | `keyExtractor`           | Uniqely identifying each image    | (imageSrc: ImageSource, index: number) => string | false |
 | `imageIndex`             | Current index of image to display                                                                   | number                                                      | true     |
 | `visible`                | Is modal shown or not                                                                               | boolean                                                     | true     |
@@ -79,7 +102,10 @@ const [visible, setIsVisible] = useState(false);
 | `FooterComponent`        | Footer component, gets current `imageIndex` as a prop                                               | component, function                                         | false    |
 | `children`        | children component, necessary to open modal above main component                                             | React.ReactNode                                         | false    |
 
-- type ImageSource = ImageURISource | ImageRequireSource
+- type ImageSource = {
+  image: ImageURISource | ImageRequireSource;
+  thumbnailImage: ImageURISource | ImageRequireSource;
+}
 
 ## Contributing
 
