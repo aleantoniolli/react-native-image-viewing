@@ -51,7 +51,7 @@ const ImageItem = ({
   doubleTapToZoomEnabled = true,
 }: Props) => {
   const imageContainer = useRef<ScrollView & NativeMethodsMixin>(null);
-  const imageDimensions = useImageDimensions(imageSrc);
+  const imageDimensions = useImageDimensions(imageSrc.thumbnailImage);
   const [translate, scale] = getImageTransform(imageDimensions, SCREEN);
   const scrollValueY = new Animated.Value(0);
   const [isLoaded, setLoadEnd] = useState(false);
@@ -92,6 +92,14 @@ const ImageItem = ({
     outputRange: [0.7, 1, 0.7],
   });
   const imageStylesWithOpacity = { ...imagesStyles, opacity: imageOpacity };
+  const imageStylesWithOpacityAbsolute = {
+    ...imageStylesWithOpacity,
+    position: "absolute",
+    left: 0,
+    right: 0,
+    bottom: 0,
+    top: 0,
+  };
 
   const onScrollEndDrag = ({
     nativeEvent,
@@ -133,10 +141,18 @@ const ImageItem = ({
     >
       <Animated.Image
         {...panHandlers}
-        source={imageSrc}
+        source={imageSrc.thumbnailImage}
         style={imageStylesWithOpacity}
         onLoad={onLoaded}
+        blurRadius={0.8}
       />
+      {isLoaded && (
+        <Animated.Image
+          {...panHandlers}
+          source={imageSrc.image}
+          style={imageStylesWithOpacityAbsolute}
+        />
+      )}
       {(!isLoaded || !imageDimensions) && <ImageLoading />}
     </ScrollView>
   );

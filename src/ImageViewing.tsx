@@ -149,9 +149,9 @@ function ImageViewing({
           keyExtractor={(imageSrc, index) =>
             keyExtractor
               ? keyExtractor(imageSrc, index)
-              : typeof imageSrc === "number"
-              ? `${imageSrc}`
-              : imageSrc.uri
+              : typeof imageSrc.thumbnailImage === "number"
+              ? `${imageSrc.thumbnailImage}`
+              : imageSrc.thumbnailImage.uri
           }
         />
         {typeof FooterComponent !== "undefined" && (

@@ -20,7 +20,7 @@ const ImageItem = ({ imageSrc, onZoom, onRequestClose, onLongPress, delayLongPre
     const scrollViewRef = useRef(null);
     const [loaded, setLoaded] = useState(false);
     const [scaled, setScaled] = useState(false);
-    const imageDimensions = useImageDimensions(imageSrc);
+    const imageDimensions = useImageDimensions(imageSrc.thumbnailImage);
     const handleDoubleTap = useDoubleTapToZoom(scrollViewRef, scaled, SCREEN);
     const [translate, scale] = getImageTransform(imageDimensions, SCREEN);
     const scrollValueY = new Animated.Value(0);
@@ -33,6 +33,14 @@ const ImageItem = ({ imageSrc, onZoom, onRequestClose, onLongPress, delayLongPre
     });
     const imagesStyles = getImageStyles(imageDimensions, translateValue, scaleValue);
     const imageStylesWithOpacity = { ...imagesStyles, opacity: imageOpacity };
+    const imageStylesWithOpacityAbsolute = {
+        ...imageStylesWithOpacity,
+        position: "absolute",
+        left: 0,
+        right: 0,
+        bottom: 0,
+        top: 0,
+    };
     const onScrollEndDrag = useCallback(({ nativeEvent }) => {
         var _a, _b, _c, _d;
         const velocityY = (_c = (_b = (_a = nativeEvent) === null || _a === void 0 ? void 0 : _a.velocity) === null || _b === void 0 ? void 0 : _b.y, (_c !== null && _c !== void 0 ? _c : 0));
@@ -62,7 +70,8 @@ const ImageItem = ({ imageSrc, onZoom, onRequestClose, onLongPress, delayLongPre
     })}>
         {(!loaded || !imageDimensions) && <ImageLoading />}
         <TouchableWithoutFeedback onPress={doubleTapToZoomEnabled ? handleDoubleTap : undefined} onLongPress={onLongPressHandler} delayLongPress={delayLongPress}>
-          <Animated.Image source={imageSrc} style={imageStylesWithOpacity} onLoad={() => setLoaded(true)}/>
+          <Animated.Image source={imageSrc.thumbnailImage} style={imageStylesWithOpacity} onLoad={() => setLoaded(true)} blurRadius={0.8}/>
+          {loaded && (<Animated.Image source={imageSrc.image} style={imageStylesWithOpacityAbsolute}/>)}
         </TouchableWithoutFeedback>
       </ScrollView>
     </View>);

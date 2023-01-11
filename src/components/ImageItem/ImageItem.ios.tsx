@@ -55,7 +55,7 @@ const ImageItem = ({
   const scrollViewRef = useRef<ScrollView>(null);
   const [loaded, setLoaded] = useState(false);
   const [scaled, setScaled] = useState(false);
-  const imageDimensions = useImageDimensions(imageSrc);
+  const imageDimensions = useImageDimensions(imageSrc.thumbnailImage);
   const handleDoubleTap = useDoubleTapToZoom(scrollViewRef, scaled, SCREEN);
 
   const [translate, scale] = getImageTransform(imageDimensions, SCREEN);
@@ -74,6 +74,14 @@ const ImageItem = ({
     scaleValue
   );
   const imageStylesWithOpacity = { ...imagesStyles, opacity: imageOpacity };
+  const imageStylesWithOpacityAbsolute = {
+    ...imageStylesWithOpacity,
+    position: "absolute",
+    left: 0,
+    right: 0,
+    bottom: 0,
+    top: 0,
+  };
 
   const onScrollEndDrag = useCallback(
     ({ nativeEvent }: NativeSyntheticEvent<NativeScrollEvent>) => {
@@ -137,10 +145,17 @@ const ImageItem = ({
           delayLongPress={delayLongPress}
         >
           <Animated.Image
-            source={imageSrc}
+            source={imageSrc.thumbnailImage}
             style={imageStylesWithOpacity}
             onLoad={() => setLoaded(true)}
+            blurRadius={0.8}
           />
+          {loaded && (
+            <Animated.Image
+              source={imageSrc.image}
+              style={imageStylesWithOpacityAbsolute}
+            />
+          )}
         </TouchableWithoutFeedback>
       </ScrollView>
     </View>

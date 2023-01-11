@@ -14,4 +14,7 @@ export declare type Position = {
     x: number;
     y: number;
 };
-export declare type ImageSource = ImageURISource | ImageRequireSource;
+export declare type ImageSource = {
+    image: ImageURISource | ImageRequireSource;
+    thumbnailImage: ImageURISource | ImageRequireSource;
+};

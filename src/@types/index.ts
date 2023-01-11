@@ -18,4 +18,7 @@ export type Position = {
   y: number;
 };
 
-export type ImageSource = ImageURISource | ImageRequireSource;
+export type ImageSource = {
+  image: ImageURISource | ImageRequireSource;
+  thumbnailImage: ImageURISource | ImageRequireSource;
+};

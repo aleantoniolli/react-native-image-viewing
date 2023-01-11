@@ -18,7 +18,7 @@ const SCREEN_WIDTH = SCREEN.width;
 const SCREEN_HEIGHT = SCREEN.height;
 const ImageItem = ({ imageSrc, onZoom, onRequestClose, onLongPress, delayLongPress, swipeToCloseEnabled = true, doubleTapToZoomEnabled = true, }) => {
     const imageContainer = useRef(null);
-    const imageDimensions = useImageDimensions(imageSrc);
+    const imageDimensions = useImageDimensions(imageSrc.thumbnailImage);
     const [translate, scale] = getImageTransform(imageDimensions, SCREEN);
     const scrollValueY = new Animated.Value(0);
     const [isLoaded, setLoadEnd] = useState(false);
@@ -49,6 +49,14 @@ const ImageItem = ({ imageSrc, onZoom, onRequestClose, onLongPress, delayLongPre
         outputRange: [0.7, 1, 0.7],
     });
     const imageStylesWithOpacity = { ...imagesStyles, opacity: imageOpacity };
+    const imageStylesWithOpacityAbsolute = {
+        ...imageStylesWithOpacity,
+        position: "absolute",
+        left: 0,
+        right: 0,
+        bottom: 0,
+        top: 0,
+    };
     const onScrollEndDrag = ({ nativeEvent, }) => {
         var _a, _b, _c, _d, _e, _f;
         const velocityY = (_c = (_b = (_a = nativeEvent) === null || _a === void 0 ? void 0 : _a.velocity) === null || _b === void 0 ? void 0 : _b.y, (_c !== null && _c !== void 0 ? _c : 0));
@@ -68,7 +76,8 @@ const ImageItem = ({ imageSrc, onZoom, onRequestClose, onLongPress, delayLongPre
         onScroll,
         onScrollEndDrag,
     })}>
-      <Animated.Image {...panHandlers} source={imageSrc} style={imageStylesWithOpacity} onLoad={onLoaded}/>
+      <Animated.Image {...panHandlers} source={imageSrc.thumbnailImage} style={imageStylesWithOpacity} onLoad={onLoaded} blurRadius={0.8}/>
+      {isLoaded && (<Animated.Image {...panHandlers} source={imageSrc.image} style={imageStylesWithOpacityAbsolute}/>)}
       {(!isLoaded || !imageDimensions) && <ImageLoading />}
     </ScrollView>);
 };

@@ -53,9 +53,9 @@ function ImageViewing({ images, keyExtractor, imageIndex, visible, onRequestClos
     //@ts-ignore
     keyExtractor={(imageSrc, index) => keyExtractor
         ? keyExtractor(imageSrc, index)
-        : typeof imageSrc === "number"
-            ? `${imageSrc}`
-            : imageSrc.uri}/>
+        : typeof imageSrc.thumbnailImage === "number"
+            ? `${imageSrc.thumbnailImage}`
+            : imageSrc.thumbnailImage.uri}/>
         {typeof FooterComponent !== "undefined" && (<Animated.View style={[styles.footer, { transform: footerTransform }]}>
             {React.createElement(FooterComponent, {
         imageIndex: currentImageIndex,

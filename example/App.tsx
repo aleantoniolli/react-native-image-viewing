@@ -47,13 +47,15 @@ export default function App() {
     images.map((image) =>
       typeof image.original === "number"
         ? image.original
-        : { uri: image.original as string }
+        : {
+            image: { uri: image.original as string },
+            thumbnailImage: { uri: image.thumbnail as string },
+          }
     )
   );
   const onLongPress = (image) => {
     Alert.alert("Long Pressed", image.uri);
   };
-
   return (
     <SafeAreaView style={styles.root}>
       <ImageList

@@ -5,6 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  *
  */
-import { Dimensions, ImageSource } from "../@types";
-declare const useImageDimensions: (image: ImageSource) => Dimensions | null;
+import { ImageURISource } from "react-native";
+import { Dimensions } from "../@types";
+declare const useImageDimensions: (image: number | ImageURISource) => Dimensions | null;
 export default useImageDimensions;
