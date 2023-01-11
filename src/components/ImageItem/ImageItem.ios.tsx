@@ -157,6 +157,18 @@ const ImageItem = ({
             />
           )}
         </TouchableWithoutFeedback>
+        {loaded && (
+          <TouchableWithoutFeedback
+            onPress={doubleTapToZoomEnabled ? handleDoubleTap : undefined}
+            onLongPress={onLongPressHandler}
+            delayLongPress={delayLongPress}
+          >
+            <Animated.Image
+              source={imageSrc.image}
+              style={imageStylesWithOpacityAbsolute}
+            />
+          </TouchableWithoutFeedback>
+        )}
       </ScrollView>
     </View>
   );
