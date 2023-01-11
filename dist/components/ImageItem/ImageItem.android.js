@@ -18,10 +18,10 @@ const SCREEN_WIDTH = SCREEN.width;
 const SCREEN_HEIGHT = SCREEN.height;
 const ImageItem = ({ imageSrc, onZoom, onRequestClose, onLongPress, delayLongPress, swipeToCloseEnabled = true, doubleTapToZoomEnabled = true, }) => {
     const imageContainer = useRef(null);
-    const imageDimensions = useImageDimensions(imageSrc.thumbnailImage);
+    const [isLoaded, setLoadEnd] = useState(false);
+    const imageDimensions = useImageDimensions(isLoaded ? imageSrc.image : imageSrc.thumbnailImage);
     const [translate, scale] = getImageTransform(imageDimensions, SCREEN);
     const scrollValueY = new Animated.Value(0);
-    const [isLoaded, setLoadEnd] = useState(false);
     const onLoaded = useCallback(() => setLoadEnd(true), []);
     const onZoomPerformed = useCallback((isZoomed) => {
         var _a;

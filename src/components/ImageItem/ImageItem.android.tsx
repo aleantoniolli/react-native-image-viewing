@@ -51,10 +51,12 @@ const ImageItem = ({
   doubleTapToZoomEnabled = true,
 }: Props) => {
   const imageContainer = useRef<ScrollView & NativeMethodsMixin>(null);
-  const imageDimensions = useImageDimensions(imageSrc.thumbnailImage);
+  const [isLoaded, setLoadEnd] = useState(false);
+  const imageDimensions = useImageDimensions(
+    isLoaded ? imageSrc.image : imageSrc.thumbnailImage
+  );
   const [translate, scale] = getImageTransform(imageDimensions, SCREEN);
   const scrollValueY = new Animated.Value(0);
-  const [isLoaded, setLoadEnd] = useState(false);
 
   const onLoaded = useCallback(() => setLoadEnd(true), []);
   const onZoomPerformed = useCallback(

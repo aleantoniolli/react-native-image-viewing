@@ -55,7 +55,9 @@ const ImageItem = ({
   const scrollViewRef = useRef<ScrollView>(null);
   const [loaded, setLoaded] = useState(false);
   const [scaled, setScaled] = useState(false);
-  const imageDimensions = useImageDimensions(imageSrc.thumbnailImage);
+  const imageDimensions = useImageDimensions(
+    loaded ? imageSrc.image : imageSrc.thumbnailImage
+  );
   const handleDoubleTap = useDoubleTapToZoom(scrollViewRef, scaled, SCREEN);
 
   const [translate, scale] = getImageTransform(imageDimensions, SCREEN);
