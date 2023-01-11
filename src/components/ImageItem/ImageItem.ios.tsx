@@ -150,12 +150,6 @@ const ImageItem = ({
             onLoad={() => setLoaded(true)}
             blurRadius={0.8}
           />
-          {loaded && (
-            <Animated.Image
-              source={imageSrc.image}
-              style={imageStylesWithOpacityAbsolute}
-            />
-          )}
         </TouchableWithoutFeedback>
         {loaded && (
           <TouchableWithoutFeedback
